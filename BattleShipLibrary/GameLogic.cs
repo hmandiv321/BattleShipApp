@@ -9,6 +9,10 @@ namespace BattleShipLibrary
 {
     public class GameLogic
     {
+        /// <summary>
+        /// Populates PlayerModel object's game grid, with values from A1-E5
+        /// </summary>
+        /// <param name="model"></param>
         public static void InitializeGrid(PlayerModel model)
         {
             List<string> letters = new List<string> 
@@ -41,6 +45,13 @@ namespace BattleShipLibrary
             
         }
 
+        /// <summary>
+        /// Creates a new GridSpotModel object and adds a grid spot to the 
+        /// PlayerModel object's ShotGrid list
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="letter"></param>
+        /// <param name="number"></param>
         private static void AddGridSpot(PlayerModel model, string letter, int number)
         {
             GridSpotModel gridSpot = new GridSpotModel

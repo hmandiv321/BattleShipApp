@@ -14,12 +14,82 @@ namespace ConsoleUI
         {
             WelcomeMessage();
 
-            PlayerModel playerOne = CreatePlayer("Player One");
-            PlayerModel playerTwo = CreatePlayer("Player Two");
+            PlayerModel activePlayer = CreatePlayer("Player One");
+            PlayerModel opponent = CreatePlayer("Player Two");
+            PlayerModel winner = null;
+
+            do
+            {
+                // Display grid from activePlayer
+                DisplayGridShot(activePlayer);
+
+                // Ask activePlayer for a shot
+                // Determine if the shot was valid
+                // Determine shot results
+                RecordPlayerShot(activePlayer, opponent);
+                
+                // Determine if the game is over
+                //if over, set activePlayer as the winner
+                //Else, swap positons with activePlayer to opponent
+
+            } while (winner == null);
 
             Console.ReadLine();
         }
+        
+        /// <summary>
+        /// Ask activePlayer for a shot.
+        /// Determine if the shot was valid. 
+        /// Determine shot results.
+        /// </summary>
+        /// <param name="activePlayer"></param>
+        /// <param name="opponent"></param>
+        private static void RecordPlayerShot(PlayerModel activePlayer, PlayerModel opponent)
+        {
+            // Ask for a shot (Ask the user to input in the form "A5")
+            // Determine which row and column the shot was aimed at
+            // Determine if the input was a valid shot
+            // Go back to the beginning if shot was in valid
+        }
+        
+        /// <summary>
+        /// Display grid from activePlayer.
+        /// </summary>
+        /// <param name="model"></param>
+        private static void DisplayGridShot(PlayerModel model)
+        {
+            string currentRow = model.ShotGrid[0].SpotLetter;
 
+            foreach (var gridSpot in model.ShotGrid)
+            {
+                if (gridSpot.SpotLetter != currentRow)
+                {
+                    Console.WriteLine();
+                    currentRow = gridSpot.SpotLetter;
+                }
+
+                if (gridSpot.Status == GridSpotStatus.Empty)
+                {
+                    Console.Write($" {gridSpot.SpotFullName} ");
+                }
+                else if (gridSpot.Status == GridSpotStatus.Hit)
+                {
+                    Console.Write(" X ");
+                }
+                else if (gridSpot.Status == GridSpotStatus.Miss)
+                {
+                    Console.Write(" O ");
+                }
+                else
+                {
+                    Console.Write(" ? ");
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Prints a welcome message and shows the game's creator name
+        /// </summary>
         private static void WelcomeMessage()
         {
             Console.Clear();
@@ -27,7 +97,12 @@ namespace ConsoleUI
             Console.WriteLine("Created By HR Mandiv");
             Console.WriteLine();
         }
-
+        
+        /// <summary>
+        /// Creates a playerModel object
+        /// </summary>
+        /// <param name="PlayerTitle"></param>
+        /// <returns>playerModel object</returns>
         private static PlayerModel CreatePlayer(string PlayerTitle)
         {
             PlayerModel output = new PlayerModel();
@@ -50,7 +125,12 @@ namespace ConsoleUI
             return output;
 
         }
-
+        
+        /// <summary>
+        /// Asks user for a question passed through the message variable
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns>user input as a string </returns>
         private static string AskForPLayersName(String message)
         {
             Console.Write(message);
@@ -58,6 +138,11 @@ namespace ConsoleUI
 
             return output;
         }
+       
+        /// <summary>
+        /// Places player ships in their desired locations (A1-E5)
+        /// </summary>
+        /// <param name="model"></param>
         private static void PlaceShips(PlayerModel model)
         {
             Console.WriteLine();
